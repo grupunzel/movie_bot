@@ -22,33 +22,31 @@ def ans(c):
     cid = c.message.chat.id
     keyboard = types.InlineKeyboardMarkup()
     if c.data == "action_rec":
-        result = format_data(send_request('боевик'))
-        for elem in result:
-            bot.send_message(cid, ''.join(elem), reply_markup=keyboard)
+        result = format_data(send_request('action'), 'боевик')
     elif c.data == "adventure_rec":
-        bot.send_message(cid, "Adventure films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('adventure'), 'приключения')
     elif c.data == "comedy_rec":
-        bot.send_message(cid, "Comedy films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('comedy'), 'комедия')
     elif c.data == "crime_rec":
-        bot.send_message(cid, "Crime films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('crime'), 'криминал')
     elif c.data == "drama_rec":
-        bot.send_message(cid, "Drama films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('drama'), 'драма')
     elif c.data == "fantasy_rec":
-        bot.send_message(cid, "Fantasy films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('fantasy'), 'фэнтези')
     elif c.data == "history_rec":
-        bot.send_message(cid, "History films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('history'), 'история')
     elif c.data == "horror_rec":
-        bot.send_message(cid, "Horror films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('horror'), 'ужасы')
     elif c.data == "musical_rec":
-        bot.send_message(cid, "Musical films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('musical'), 'мюзикл')
     elif c.data == "mistery_rec":
-        bot.send_message(cid, "Mistery films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('mistery'), 'детектив')
     elif c.data == "romance_rec":
-        bot.send_message(cid, "Romance films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('romance'), 'мелодрама')
     elif c.data == "sci_fi_rec":
-        bot.send_message(cid, "Sci_fi films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('sci-fi'), 'фантастика')
     elif c.data == "war_rec":
-        bot.send_message(cid, "War films recommendation", reply_markup=keyboard)
+        result = format_data(send_request('war'), 'военный')
 
     elif c.data == "action_ran":
         bot.send_message(cid, "Action films random", reply_markup=keyboard)
@@ -78,7 +76,10 @@ def ans(c):
         bot.send_message(cid, "War films random", reply_markup=keyboard)
     elif c.data == "back":
         msg = bot.send_message(cid, 'You are on the main menu')
-        bot.register_next_step_handler(msg,send_welcome)
+        bot.register_next_step_handler(msg, send_welcome)
+
+    for elem in result:
+        bot.send_message(cid, ''.join(elem), reply_markup=keyboard)
 
 
 
