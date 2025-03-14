@@ -4,7 +4,7 @@ import requests
 def send_request(genre: str):
     url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films'
 
-    genres_id = {'action' : 1,
+    genres_id = {'action' : 11,
                  'adventure' : 7,
                  'comedy' : 13,
                  'crime' : 3,
@@ -16,7 +16,7 @@ def send_request(genre: str):
                  'mistery' : 5,
                  'romance' : 4,
                  'sci-fi' : 6,
-                 'war' : 11
+                 'war' : 14,
                  }
 
     headers = {
@@ -25,9 +25,8 @@ def send_request(genre: str):
     }
 
     params = {
-        'genres' : [3],
-        'notNullFields' : ['nameRu', 'nameOriginal', 'posterUrl', 'year', 'ratingKinopoisk', 'ratingImdb', 'description'],
-        'selectFields' : ['poster', 'name', 'type', 'year', 'rating', 'genres', 'id', 'description']
+        'genres' : [genres_id[genre]],
+        'type' : 'FILM',
     }
 
     response = requests.get(url, params=params, headers=headers)
@@ -37,7 +36,7 @@ def send_request(genre: str):
     return films_api['items']
 
 # форматирование ответа
-def format_data(data: dict):
+def format_data(data: dict, genre: str):
     formatted_data = []
     for film in data:
         nameRu = film['nameRu']
@@ -58,12 +57,13 @@ def format_data(data: dict):
             age_limits = ''
         country = ', '.join(c['country'] for c in film['countries'])
 
-        formatted_data.append(
-            f'''{url_poster}
-            \n{nameRu}/{nameOriginal} ({year})     {ratingKinopoisk}(Imdb - {ratingImdb})
-            \nЖанр: {genres}     {age_limits}
-            \nСтрана: {country}
-            \nОписание: {film_description}
-            \nId: {id}'''
-        )
-    return formatted_data
+        if film['genres'][0]['genre'] == genre:
+            formatted_data.append(
+                f'''{url_poster}
+                \n{nameRu}/{nameOriginal} ({year})     {ratingKinopoisk}(Imdb - {ratingImdb})
+                \nЖанр: {genres}     {age_limits}
+                \nСтрана: {country}
+                \nОписание: {film_description}
+                \nId: {id}'''
+            )
+    return formatted_data[:7]
