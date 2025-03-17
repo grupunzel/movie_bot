@@ -1,6 +1,6 @@
 import telebot
 from telebot import types
-from hooks import send_request, format_data
+from hooks import send_request, format_data, random_film
 
 API_TOKEN = '7818305458:AAHql1NDOblTnOy48LjLDhue-mrjWc2PsDQ'
 
@@ -49,31 +49,31 @@ def ans(c):
         result = format_data(send_request('war'), 'военный')
 
     elif c.data == "action_ran":
-        bot.send_message(cid, "Action films random", reply_markup=keyboard)
+        result = format_data(random_film('action'), 'боевик')
     elif c.data == "adventure_ran":
-        bot.send_message(cid, "Adventure films random", reply_markup=keyboard)
+        result = format_data(random_film('adventure'), 'приключения')
     elif c.data == "comedy_ran":
-        bot.send_message(cid, "Comedy films random", reply_markup=keyboard)
+        result = format_data(random_film('comedy'), 'комедия')
     elif c.data == "crime_ran":
-        bot.send_message(cid, "Crime films random", reply_markup=keyboard)
+        result = format_data(random_film('crime'), 'криминал')
     elif c.data == "drama_ran":
-        bot.send_message(cid, "Drama films random", reply_markup=keyboard)
+        result = format_data(random_film('drama'), 'драма')
     elif c.data == "fantasy_ran":
-        bot.send_message(cid, "Fantasy films random", reply_markup=keyboard)
+        result = format_data(random_film('fantasy'), 'фэнтези')
     elif c.data == "history_ran":
-        bot.send_message(cid, "History films random", reply_markup=keyboard)
+        result = format_data(random_film('history'), 'история')
     elif c.data == "horror_ran":
-        bot.send_message(cid, "Horror films random", reply_markup=keyboard)
+        result = format_data(random_film('horror'), 'ужасы')
     elif c.data == "musical_ran":
-        bot.send_message(cid, "Musical films random", reply_markup=keyboard)
+        result = format_data(random_film('musical'), 'мюзикл')
     elif c.data == "mistery_ran":
-        bot.send_message(cid, "Mistery films random", reply_markup=keyboard)
+        result = format_data(random_film('mistery'), 'детектив')
     elif c.data == "romance_ran":
-        bot.send_message(cid, "Romance films random", reply_markup=keyboard)
+        result = format_data(random_film('romance'), 'мелодрама')
     elif c.data == "sci_fi_ran":
-        bot.send_message(cid, "Sci_fi films random", reply_markup=keyboard)
+        result = format_data(random_film('sci-fi'), 'фантастика')
     elif c.data == "war_ran":
-        bot.send_message(cid, "War films random", reply_markup=keyboard)
+        result = format_data(random_film('war'), 'военный')
     elif c.data == "back":
         msg = bot.send_message(cid, 'You are on the main menu')
         bot.register_next_step_handler(msg, send_welcome)
