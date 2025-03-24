@@ -5,19 +5,19 @@ import random
 def send_request(genre: str):
     url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films?order=RATING&type=FILM&ratingFrom=0&ratingTo=10&yearFrom=1000&yearTo=3000&page=1'
 
-    genres_id = {'action' : 11,
-                 'adventure' : 7,
-                 'comedy' : 13,
-                 'crime' : 3,
-                 'drama' : 2,
-                 'fantasy' : 12,
-                 'history' : 15,
-                 'horror' : 17,
-                 'musical' : 20,
-                 'mistery' : 5,
-                 'romance' : 4,
-                 'sci-fi' : 6,
-                 'war' : 14,
+    genres_id = {'боевик' : 11,
+                 'приключения' : 7,
+                 'комедия' : 13,
+                 'криминал' : 3,
+                 'драма' : 2,
+                 'фэнтези' : 12,
+                 'история' : 15,
+                 'ужасы' : 17,
+                 'мюзикл' : 20,
+                 'детектив' : 5,
+                 'мелодрама' : 4,
+                 'фантастика' : 6,
+                 'военный' : 14,
                  }
 
     headers = {
@@ -38,6 +38,11 @@ def send_request(genre: str):
     for film in films:
         if film['genres'][0]['genre'] != genre:
             films.remove(film)
+    for film in films:
+        for g in film['genres']:
+            if g['genre'] == 'мультфильм' or g['genre'] == 'детский':
+                films.remove(film)
+                break
     return films
 
 
