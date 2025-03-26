@@ -157,22 +157,41 @@ def best_of_the_best():
 
     return best_films5
 
+global wishlist
+wishlist = []
+def add_to_wishlist(id):
+    data = format_data([film_description(id)])
+    if not data in wishlist:
+        wishlist.append(format_data([film_description(id)]))
+        return 'Фильм добавлен в Избранное. \U0001F4CD'
+    else:
+        return 'Этот фильм уже добавлен в Избранное.'
+
+def remove_from_wishlist():
+    wishlist.remove(format_data(([film_description(id)])))
+    return 'Фильм удален из Избранное.'
+
+global id_list
+id_list = []
+def print_id_list():
+    return id_list
 
 # форматирование ответа
 def format_data(data: list):
     formatted_data = []
+    id_list = []
     for film in data:
-        nameRu = film['nameRu']
-        nameOriginal = film['nameOriginal']
-        year = film['year']
-        ratingKinopoisk = film['ratingKinopoisk']
-        ratingImdb = film['ratingImdb']
         id = film['kinopoiskId']
-        countries = ", ".join(g["country"] for g in film["countries"])
-        genres = ", ".join(g["genre"] for g in film["genres"])
-        url_poster = film['posterUrl']
-
         Description = film_description(id)
+        nameRu = Description['nameRu']
+        nameOriginal = Description['nameOriginal']
+        year = Description['year']
+        ratingKinopoisk = Description['ratingKinopoisk']
+        ratingImdb = Description['ratingImdb']
+        countries = ", ".join(g["country"] for g in Description["countries"])
+        genres = ", ".join(g["genre"] for g in Description["genres"])
+        url_poster = Description['posterUrl']
+
         if not Description['description'] == None:
             description = Description['description']
         elif not Description['shortDescription'] == None:
@@ -195,6 +214,7 @@ def format_data(data: list):
             \nId: {id}
             \nТрейлер: {trailer}'''
         )
+        id_list.append(id)
     if len(formatted_data) > 1 :
         formatted_data5 = []
         i = 0
@@ -203,7 +223,6 @@ def format_data(data: list):
             if not film in formatted_data5:
                 formatted_data5.append(film)
                 i += 1
-        return formatted_data5
-
+        return [formatted_data5, id_list]
     else:
-        return formatted_data
+        return [formatted_data, id_list]
