@@ -1,6 +1,7 @@
 import telebot, telegram
+from telegram import Update
 from telebot import types
-from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist, print_id_list
+from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist
 
 API_TOKEN = '7818305458:AAHql1NDOblTnOy48LjLDhue-mrjWc2PsDQ'
 
@@ -18,9 +19,8 @@ def send_welcome(message):
     bot.send_message(message.chat.id, "Привет! Я твой MovieBot, нажми на любую кнопку в меню, и я помогу тебе выбрать, что посмотреть.", reply_markup=markup)
 
 global results_list
-global film_id
 results_list = []
-film_id = 0
+
 @bot.callback_query_handler(func=lambda c:True)
 def ans(c):
     cid = c.message.chat.id
@@ -136,27 +136,36 @@ def ans(c):
     elif c.data == "back":
         msg = bot.send_message(cid, 'Вы на Главном Меню.')
         bot.register_next_step_handler(msg, send_welcome)
-    elif c.data == 'add_wishlist':
-        wishlist_add()
-        result = add_to_wishlist(film_id)
-        bot.send_message(cid, result)
-    keyboard.add(again, back)
-    keyboard_wishlist = types.InlineKeyboardMarkup()
-    if len(result) != 0 and result[0] != 'Ф':
+    elif c.data == 'add_film_0':
         id_list = results_list[-1]
-        print(id_list)
+        result = add_to_wishlist(id_list[0])
+        bot.send_message(cid, result)
+    elif c.data == 'add_film_1':
+        id_list = results_list[-1]
+        result1 = add_to_wishlist(id_list[1])
+        bot.send_message(cid, result1)
+    elif c.data == 'add_film_2':
+        id_list = results_list[-1]
+        result2 = add_to_wishlist(id_list[2])
+        bot.send_message(cid, result2)
+    elif c.data == 'add_film_3':
+        id_list = results_list[-1]
+        result3 = add_to_wishlist(id_list[3])
+        bot.send_message(cid, result3)
+    elif c.data == 'add_film_4':
+        id_list = results_list[-1]
+        result4 = add_to_wishlist(id_list[4])
+        bot.send_message(cid, result4)
+    keyboard.add(again, back)
+    if len(result) != 0 and result[0] != 'Ф':
         i = 0
         for elem in result[0]:
-            add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_wishlist_{i}')
+            keyboard_wishlist = types.InlineKeyboardMarkup()
+            add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
             keyboard_wishlist.add(add_wishlist)
             bot.send_message(cid, ''.join(elem), reply_markup=keyboard_wishlist)
             i += 1
         bot.send_message(cid, 'Предложить еще фильмов?', reply_markup=keyboard)
-
-
-
-def wishlist_add(id):
-    add_to_wishlist(id)
 
 
 @bot.message_handler(content_types=['text'])
