@@ -159,10 +159,13 @@ def best_of_the_best():
 
 global wishlist
 wishlist = []
+global wishlist_id
+wishlist_id = []
 def add_to_wishlist(id):
     data = format_data([film_description(id)])
     if not data in wishlist:
         wishlist.append(data)
+        wishlist_id.append(id)
         return 'Фильм добавлен в Избранное \U0001F4CD'
     else:
         return 'Этот фильм уже добавлен в Избранное.'
@@ -170,14 +173,11 @@ def add_to_wishlist(id):
 def print_wishlist():
     return wishlist
 
-def remove_from_wishlist():
+
+def remove_from_wishlist(id):
     wishlist.remove(format_data(([film_description(id)])))
     return 'Фильм удален из Избранное.'
 
-global id_list
-id_list = []
-def print_id_list():
-    return id_list
 
 # форматирование ответа
 def format_data(data: list):
@@ -220,12 +220,15 @@ def format_data(data: list):
         id_list.append(id)
     if len(formatted_data) > 1 :
         formatted_data5 = []
+        id_list_5 = []
         i = 0
         while i < 5:
-            film = formatted_data[random.randint(0, len(formatted_data) - 1)]
+            random_index = random.randint(0, len(formatted_data) - 1)
+            film = formatted_data[random_index]
             if not film in formatted_data5:
                 formatted_data5.append(film)
+                id_list_5.append(id_list[random_index])
                 i += 1
-        return [formatted_data5, id_list]
+        return [formatted_data5, id_list_5]
     else:
         return [formatted_data, id_list]
