@@ -1,5 +1,4 @@
-import telebot, telegram
-from telegram import Update
+import telebot
 from telebot import types
 from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist
 
