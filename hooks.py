@@ -166,17 +166,16 @@ def add_to_wishlist(id):
     if not data in wishlist:
         wishlist.append(data)
         wishlist_id.append(id)
-        return 'Фильм добавлен в Избранное \U0001F4CD'
+        return wishlist
     else:
-        return 'Этот фильм уже добавлен в Избранное.'
+        return 'Фильм уже добавлен в Избранное \U0001F4CD'
 
 def print_wishlist():
     return wishlist
 
-
 def remove_from_wishlist(id):
-    wishlist.remove(format_data(([film_description(id)])))
-    return 'Фильм удален из Избранное.'
+    wishlist.pop(id)
+    return 'Фильм удален из Избранного.'
 
 
 # форматирование ответа
