@@ -39,7 +39,7 @@ pip install python-telegram-bot
 <h2>Features</h2>
 The bot menu includes five buttons:<br><br>
 - <b>Новинки</b>:<br>
-  The bot sends new films with release dates not earlier than 2024.<br><br>
+  The bot sends new films with release years not earlier than 2024.<br><br>
 - <b>Рекомендации фильмов</b>:<br>
   The bot will send you a menu for genre selection. Choose a genre, and the bot will provide you five film recommendations.<br><br>
 - <b>Лучшие из лучших</b>:<br>
