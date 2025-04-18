@@ -43,7 +43,7 @@ The bot menu includes five buttons:<br><br>
 - <b>Рекомендации фильмов</b>:<br>
   The bot will send you a menu for genre selection. Choose a genre, and the bot will provide you five film recommendations.<br><br>
 - <b>Лучшие из лучших</b>:<br>
-  The bot sends the most popular films of all times with the highest IMDb rating.<br><br>
+  The bot sends the most popular films of all times with the highest IMDb ratings.<br><br>
 - <b>Рандомный фильм</b>:<br>
   The bot will send you a menu for genre selection. After choosing a genre, the bot will provide a random film with the selected genre.<br><br>
 - <b>Посмотреть Избранное</b>:<br>
