@@ -19,15 +19,19 @@ in the wishlist. You can also delete a movie from your wishlist.
 To test the bot you can scan the QR code below or go to this <a href='https://t.me/LiveLikeInAMovieBot'>link</a>.
 <br><br><img src='image0.jpeg' width='200' height='200'><br>
 If you want to customize the code, use this instruction:<br><br>
-1. Create a directory on your pc and copy there two files: 'main.py' and 'hooks.py'.<br><br>
-2. Open the Command Prompt and go to the directory with the code, then install 
-   the library 'python-telegram-bot' by running this code in Command Prompt:<br><br>
+1. Create a directory on your computer and copy there two files: 'main.py' and 'hooks.py'.<br><br>
+2. Open the Command Prompt and go to the directory with the code, then install the virtual environment by running this code:<br><br>
+<pre>
+  python -m venv env
+</pre><br>
+3. Set the virtual environment. Go to the directory 'env', then 'Scripts', run 'activate', and go back to the directory with the project.<br><br>
+4. In the Command Prompt install the library 'python-telegram-bot' by running this code:<br><br>
 <pre>
 pip install python-telegram-bot
 </pre><br>
-3. If you are using Visual Studio Code or PyCharm, do the same thing in the app terminal.<br><br>
-4. Make your changes in the code.<br><br>
-5. To test the code run the 'main.py' file in the Command Prompt:<br><br>
+5. If you are using Visual Studio Code or PyCharm, do the same thing in the app terminal.<br><br>
+6. Make your changes in the code.<br><br>
+7. To test the code run the 'main.py' file in the Command Prompt:<br><br>
 <pre>
   C:\your_repository>main.py
 </pre>
