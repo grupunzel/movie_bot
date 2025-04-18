@@ -8,7 +8,7 @@ Formal documentation for the library that is used in this project you can <a hre
 API token was taken from <a href='https://kinopoiskapiunofficial.tech/documentation/api/?ysclid=m9mioyr2y6157520274'>here</a>.
 
 <h2>About the project</h2>
-MovieBot is a Telegram bot that advises movies according to a genre you choose. Its recomendations are also based on the IMDb 
+MovieBot is a Telegram bot that recommends movies according to a genre you choose. Its recommendations are also based on the IMDb 
 rating, so only high-quality movies will be shown. Additionaly, the bot provides full information about each movie, including 
 the original name, year of release, ratings on Kinopoisk and IMDb, country, genre, description, poster, and trailer.
 <br><br>
