@@ -209,7 +209,7 @@ def format_data(data: list):
 
         formatted_data.append(
             f'''{url_poster}
-            \n{nameRu}/{nameOriginal} ({year})     {ratingKinopoisk}(Imdb - {ratingImdb})
+            \n{nameRu}/{nameOriginal} ({year})     {ratingKinopoisk}(Imdb - {ratingIMDb})
             \nЖанр: {genres}     
             \nСтрана: {countries}
             \nОписание: {description}
