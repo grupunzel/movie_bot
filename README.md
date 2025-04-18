@@ -16,7 +16,7 @@ One of the useful features of the bot is ability to add movies to your wishlist.
 in the wishlist. You can also delete a movie from your wishlist.
 
 <h2>Get started</h2>
-To test the bot you can scan the QR code below or go to this <a href='t.me%2FLiveLikeInAMovieBot&utf=1'>link</a>.
+To test the bot you can scan the QR code below or go to this <a href='https://t.me/LiveLikeInAMovieBot'>link</a>.
 <br><br><img src='image0.jpeg' width='200' height='200'><br>
 If you want to customize the code, use this instruction:<br><br>
 1. Create a directory on your pc and copy there two files: 'main.py' and 'hooks.py'.<br><br>
