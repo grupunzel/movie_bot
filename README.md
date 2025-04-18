@@ -1,4 +1,3 @@
-<br>
 <div>
   <h1>Telegram Bot MovieBot</h1>
 </div>
@@ -27,6 +26,6 @@ in the wishlist. You can also delete a movie from your wishlist.
   <h2>Get started</h2>
   <pre>
 To test the bot you can scan the QR code below or go to this <a href='https://vk.com/away.php?to=https%3A%2F%2Ft.me%2FLiveLikeInAMovieBot&utf=1'>link</a>.
-<img src=''>
+<br><img src='QR.png' width='200' height='200'><br>
   </pre>
 </div>
