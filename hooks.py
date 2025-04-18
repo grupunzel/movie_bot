@@ -209,12 +209,13 @@ def format_data(data: list):
 
         formatted_data.append(
             f'''{url_poster}
-            \n{nameRu}/{nameOriginal} ({year})     {ratingKinopoisk}(IMDb - {ratingImdb})
-            \nЖанр: {genres}     
-            \nСтрана: {countries}
-            \nОписание: {description}
-            \nId: {id}
-            \nТрейлер: {trailer}'''
+            \n<b>{nameRu}/{nameOriginal}</b>   ({year})
+            \n{ratingKinopoisk}(IMDb - {ratingImdb})
+            \n<b>Жанр</b>: {genres}     
+            \n<b>Страна</b>: {countries}
+            \n<b>Описание</b>: {description}
+            \n<b>Id</b>: {id}
+            \n<b>Трейлер</b>: {trailer}'''
         )
         id_list.append(id)
     if len(formatted_data) > 1 :
