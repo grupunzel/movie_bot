@@ -16,8 +16,8 @@ One of the useful features of the bot is ability to add movies to your wishlist.
 in the wishlist. You can also delete a movie from your wishlist.
 
 <h2>Get started</h2>
-To test the bot you can scan the QR code below or go to this <a href='https://vk.com/away.php?to=https%3A%2F%2Ft.me%2FLiveLikeInAMovieBot&utf=1'>link</a>.
-<br><br><img src='QR.png' width='200' height='200'><br>
+To test the bot you can scan the QR code below or go to this <a href='t.me%2FLiveLikeInAMovieBot&utf=1'>link</a>.
+<br><br><img src='image0.jpeg' width='200' height='200'><br>
 If you want to customize the code, use this instruction:<br><br>
 1. Create a directory on your pc and copy there two files: 'main.py' and 'hooks.py'.<br><br>
 2. Open the Command Prompt and go to the directory with the code, then install 
@@ -33,3 +33,27 @@ pip install python-telegram-bot
 </pre>
 
 <h2>Features</h2>
+The bot menu includes five buttons:<br><br>
+- <b>Новинки</b>:<br>
+  The bot sends new films with release dates not earlier than 2024.<br><br>
+- <b>Рекомендации фильмов</b>:<br>
+  The bot will send you a menu for genre selection. Choose a genre, and the bot will provide you five film recommendations.<br><br>
+- <b>Лучшие из лучших</b>:<br>
+  The bot sends the most popular films of all times with the highest IMDb rating.<br><br>
+- <b>Рандомный фильм</b>:<br>
+  The bot will send you a menu for genre selection. After choosing a genre, the bot will provide a random film with the selected genre.<br><br>
+- <b>Посмотреть Избранное</b>:<br>
+  The bot will display your wishlist. In this feature you can delete a film from your wishlist.<br><br>
+
+<h2>Attached files</h2>
+<ul>
+  <li>
+    <b>main.py</b> - file with bot interaction functions
+  </li>
+  <li>
+    <b>hooks.py</b> - file with API interactions
+  </li>
+  <li>
+    <b>links</b> - file with API link
+  </li>
+</ul>
