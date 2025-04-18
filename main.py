@@ -26,7 +26,7 @@ def ans(c):
     cid = c.message.chat.id
     keyboard = types.InlineKeyboardMarkup()
     back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-    again = types.InlineKeyboardButton(text='Повторить', callback_data='back')
+    again = types.InlineKeyboardButton(text='Повторить', callback_data='again')
     result = []
     if c.data == "action_rec":
         result = format_data(send_request('боевик'))
@@ -138,7 +138,19 @@ def ans(c):
         bot.register_next_step_handler(msg, send_welcome)
     elif c.data == 'new_films':
         send_new_films(cid)
+    elif c.data == 'best_films':
+        send_best_films(cid)
     wishlist_list = print_wishlist()
+    keyboard.add(back, again)
+    if len(result) != 0 and result[0] != 'Ф':
+        i = 0
+        for elem in result[0]:
+            keyboard_wishlist = types.InlineKeyboardMarkup()
+            add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
+            keyboard_wishlist.add(add_wishlist)
+            bot.send_message(cid, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
+            i += 1
+        bot.send_message(cid, 'Предложить еще фильмов?', reply_markup=keyboard)
     for i in range(len(wishlist_list)):
         if c.data == f'remove_film_{i}':
             result = remove_from_wishlist(i)
@@ -159,16 +171,6 @@ def ans(c):
                     message_id=c.message.message_id,
                     text=c.message.text + f'\n\n\nФильм уже добавлен в Избранное \U0001F4CD\n\n'
                 )
-    keyboard.add(back, again)
-    if len(result) != 0 and result[0] != 'Ф':
-        i = 0
-        for elem in result[0]:
-            keyboard_wishlist = types.InlineKeyboardMarkup()
-            add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
-            keyboard_wishlist.add(add_wishlist)
-            bot.send_message(cid, ''.join(elem), reply_markup=keyboard_wishlist)
-            i += 1
-        bot.send_message(cid, 'Предложить еще фильмов?', reply_markup=keyboard)
 
 
 def send_new_films(chat_id):
@@ -177,12 +179,30 @@ def send_new_films(chat_id):
     again = types.InlineKeyboardButton(text='Повторить', callback_data='new_films')
     keyboard.add(back, again)
     result = format_data(new_films())
+    results_list.append(result[1])
     i = 0
     for elem in result[0]:
         keyboard_wishlist = types.InlineKeyboardMarkup()
         add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
         keyboard_wishlist.add(add_wishlist)
-        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist)
+        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
+        i += 1
+    bot.send_message(chat_id, 'Предложить еще фильмов?', reply_markup=keyboard)
+
+
+def send_best_films(chat_id):
+    keyboard = types.InlineKeyboardMarkup()
+    back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+    again = types.InlineKeyboardButton(text='Повторить', callback_data='best_films')
+    keyboard.add(back, again)
+    result = format_data(best_of_the_best())
+    results_list.append(result[1])
+    i = 0
+    for elem in result[0]:
+        keyboard_wishlist = types.InlineKeyboardMarkup()
+        add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
+        keyboard_wishlist.add(add_wishlist)
+        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
         i += 1
     bot.send_message(chat_id, 'Предложить еще фильмов?', reply_markup=keyboard)
 
@@ -212,17 +232,7 @@ def handle_message(message):
         bot.send_message(message.chat.id, "Выберите жанр:", reply_markup=markup_genre)
 
     elif message.text == 'Лучшие из лучших \U0001F525':
-        keyboard = types.InlineKeyboardMarkup()
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='back')
-        keyboard.add(back, again)
-        result = format_data(best_of_the_best())
-        keyboard_wishlist = types.InlineKeyboardMarkup()
-        add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data='add_wishlist')
-        keyboard_wishlist.add(add_wishlist)
-        for elem in result[0]:
-            bot.send_message(message.chat.id, ''.join(elem), reply_markup=keyboard_wishlist)
-        bot.send_message(message.chat.id, 'Предложить еще фильмов?', reply_markup=keyboard)
+        send_best_films(message.chat.id)
 
     elif message.text == 'Рандомный фильм \U0001F3AC':
         markup_genre = types.InlineKeyboardMarkup()
@@ -252,7 +262,7 @@ def handle_message(message):
             keyboard_wishlist = types.InlineKeyboardMarkup()
             remove_wishlist = types.InlineKeyboardButton(text='Удалить из Избранного \U0001F4CD', callback_data=f'remove_film_{i}')
             keyboard_wishlist.add(remove_wishlist)
-            bot.send_message(message.chat.id, elem, reply_markup=keyboard_wishlist)
+            bot.send_message(message.chat.id, elem, reply_markup=keyboard_wishlist, parse_mode='html')
             i += 1
 
 bot.infinity_polling()
