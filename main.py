@@ -1,5 +1,6 @@
 import telebot
 from telebot import types
+import random
 from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist
 
 API_TOKEN = '7818305458:AAHql1NDOblTnOy48LjLDhue-mrjWc2PsDQ'
@@ -20,6 +21,7 @@ def send_welcome(message):
 
 global results_list
 results_list = []
+genres_id = ['боевик', 'приключения', 'комедия', 'криминал', 'драма', 'фэнтези', 'история', 'ужасы', 'мюзикл', 'детектив', 'мелодрама', 'фантастика', 'военный']
 
 @bot.callback_query_handler(func=lambda c:True)
 def ans(c):
@@ -80,6 +82,10 @@ def ans(c):
         result = format_data(send_request('военный'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='war_rec')
+    elif c.data == 'random_f_rec':
+        result = format_data(send_request(genres_id[random.randint(0, 12)]))
+        results_list.append(result[1])
+        again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_rec')
 
     elif c.data == "action_ran":
         result = format_data(random_film('боевик'))
@@ -133,6 +139,10 @@ def ans(c):
         result = format_data(random_film('военный'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='war_ran')
+    elif c.data == 'random_f_ran':
+        result = format_data(random_film(genres_id[random.randint(0, 12)]))
+        results_list.append(result[1])
+        again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_ran')
     elif c.data == "back":
         msg = bot.send_message(cid, 'Вы на Главном Меню.')
         bot.register_next_step_handler(msg, send_welcome)
@@ -227,8 +237,9 @@ def handle_message(message):
         romance = types.InlineKeyboardButton(text='Мелодрама \U0001F48F', callback_data='romance_rec')
         sci_fi = types.InlineKeyboardButton(text='Фантастика \U0001F47D', callback_data='sci_fi_rec')
         war = types.InlineKeyboardButton(text='Военный \U0001F93C', callback_data='war_rec')
+        random_f = types.InlineKeyboardButton(text='Случайный \U0001F440', callback_data='random_f_rec')
         back = types.InlineKeyboardButton(text='Назад в меню', callback_data='back')
-        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance, sci_fi, war, back)
+        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance, sci_fi, war, random_f,  back)
         bot.send_message(message.chat.id, "Выберите жанр:", reply_markup=markup_genre)
 
     elif message.text == 'Лучшие из лучших \U0001F525':
@@ -249,8 +260,9 @@ def handle_message(message):
         romance = types.InlineKeyboardButton(text='Мелодрама \U0001F48F', callback_data='romance_ran')
         sci_fi = types.InlineKeyboardButton(text='Фантастика \U0001F47D', callback_data='sci_fi_ran')
         war = types.InlineKeyboardButton(text='Военный \U0001F93C', callback_data='war_ran')
+        random_f = types.InlineKeyboardButton(text='Случайный \U0001F440', callback_data='random_f_ran')
         back = types.InlineKeyboardButton(text='Назад в меню', callback_data='back')
-        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance,sci_fi, war, back)
+        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance,sci_fi, war, random_f, back)
         bot.send_message(message.chat.id, "Выберите жанр:", reply_markup=markup_genre)
 
     elif message.text == 'Посмотреть Избранное \U0001F4CD':
