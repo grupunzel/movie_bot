@@ -62,6 +62,11 @@ def film_description(id):
     return films_description
 
 
+def get_film_poster(id):
+    result = film_description(id)
+    return result['posterUrl']
+
+
 #получение трейлера фильма
 def film_trailer(id):
     url = f'https://kinopoiskapiunofficial.tech/api/v2.2/films/{id}/videos'
@@ -161,6 +166,7 @@ global wishlist
 wishlist = []
 global wishlist_id
 wishlist_id = []
+
 def add_to_wishlist(id):
     data = format_data([film_description(id)])
     if not data in wishlist:
@@ -174,7 +180,7 @@ def print_wishlist():
     return wishlist
 
 def remove_from_wishlist(id):
-    wishlist.pop(id)
+    wishlist[id] = ''
     return 'Фильм удален из Избранного.'
 
 
@@ -208,13 +214,12 @@ def format_data(data: list):
             trailer = ''
 
         formatted_data.append(
-            f'''{url_poster}
-            \n<b>{nameRu}/{nameOriginal}</b>   ({year})
+            f'''<b>{nameRu}/{nameOriginal}</b>   ({year})
             \n{ratingKinopoisk}(IMDb - {ratingImdb})
             \n<b>Жанр</b>: {genres}     
             \n<b>Страна</b>: {countries}
             \n<b>Описание</b>: {description}
-            \n<b>Id</b>: {id}
+            \n<b>Id</b><a href='{url_poster}'>: </a>{id}
             \n<b>Трейлер</b>: {trailer}'''
         )
         id_list.append(id)
