@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 import random
-from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist
+from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist, get_film_poster, film_description
 
 API_TOKEN = '7818305458:AAHql1NDOblTnOy48LjLDhue-mrjWc2PsDQ'
 
@@ -17,7 +17,7 @@ def send_welcome(message):
     film_random = types.KeyboardButton('Рандомный фильм \U0001F3AC')
     wishlist = types.KeyboardButton('Посмотреть Избранное \U0001F4CD')
     markup.add(new_film, recommend_film, best_films, film_random, wishlist)
-    bot.send_message(message.chat.id, "Привет! Я твой MovieBot, нажми на любую кнопку в меню, и я помогу тебе выбрать, что посмотреть.", reply_markup=markup)
+    bot.send_message(message.chat.id, "Привет! \U0001F44B Я твой MovieBot, нажми на любую кнопку в меню, и я помогу тебе выбрать, что посмотреть.", reply_markup=markup)
 
 global results_list
 results_list = []
@@ -34,115 +34,146 @@ def ans(c):
         result = format_data(send_request('боевик'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='action_rec')
+        bot.send_message(cid, "Боевики:")
     elif c.data == "adventure_rec":
         result = format_data(send_request('приключения'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='adventure_rec')
+        bot.send_message(cid, "Фильмы-приключения:")
     elif c.data == "comedy_rec":
         result = format_data(send_request('комедия'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='comedy_rec')
+        bot.send_message(cid, "Комедии:")
     elif c.data == "crime_rec":
         result = format_data(send_request('криминал'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='crime_rec')
+        bot.send_message(cid, "Криминал:")
     elif c.data == "drama_rec":
         result = format_data(send_request('драма'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='drama_rec')
+        bot.send_message(cid, "Драмы:")
     elif c.data == "fantasy_rec":
         result = format_data(send_request('фэнтези'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='fantasy_rec')
+        bot.send_message(cid, "Фэнтези:")
     elif c.data == "history_rec":
         result = format_data(send_request('история'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='history_rec')
+        bot.send_message(cid, "Исторические:")
     elif c.data == "horror_rec":
         result = format_data(send_request('ужасы'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='horror_rec')
+        bot.send_message(cid, "Ужасы:")
     elif c.data == "musical_rec":
         result = format_data(send_request('мюзикл'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='musical_rec')
+        bot.send_message(cid, "Мюзиклы:")
     elif c.data == "mistery_rec":
         result = format_data(send_request('детектив'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='mistery_rec')
+        bot.send_message(cid, "Детективы:")
     elif c.data == "romance_rec":
         result = format_data(send_request('мелодрама'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='romance_rec')
+        bot.send_message(cid, "Мелодрамы:")
     elif c.data == "sci_fi_rec":
         result = format_data(send_request('фантастика'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='sci_fi_rec')
+        bot.send_message(cid, "Фантастика:")
     elif c.data == "war_rec":
         result = format_data(send_request('военный'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='war_rec')
+        bot.send_message(cid, "Военные фильмы:")
     elif c.data == 'random_f_rec':
-        result = format_data(send_request(genres_id[random.randint(0, 12)]))
+        genre = genres_id[random.randint(0, 12)]
+        result = format_data(send_request(genre))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_rec')
+        bot.send_message(cid, "Случайные рекомендации в жанре:", genre)
 
     elif c.data == "action_ran":
         result = format_data(random_film('боевик'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='action_ran')
+        bot.send_message(cid, "Случайный боевик:")
     elif c.data == "adventure_ran":
         result = format_data(random_film('приключения'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='adventure_ran')
+        bot.send_message(cid, "Случайный фильм-приключение:")
     elif c.data == "comedy_ran":
         result = format_data(random_film('комедия'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='comedy_ran')
+        bot.send_message(cid, "Случайная комедия:")
     elif c.data == "crime_ran":
         result = format_data(random_film('криминал'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='crime_ran')
+        bot.send_message(cid, "Случайный фильм-криминал:")
     elif c.data == "drama_ran":
         result = format_data(random_film('драма'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='drama_ran')
+        bot.send_message(cid, "Случайная драма:")
     elif c.data == "fantasy_ran":
         result = format_data(random_film('фэнтези'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='fantasy_ran')
+        bot.send_message(cid, "Случайный фильм-фэнтези:")
     elif c.data == "history_ran":
         result = format_data(random_film('история'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='history_ran')
+        bot.send_message(cid, "Случайный исторический фильм:")
     elif c.data == "horror_ran":
         result = format_data(random_film('ужасы'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='horror_ran')
+        bot.send_message(cid, "Случайный фильм-ужасы:")
     elif c.data == "musical_ran":
         result = format_data(random_film('мюзикл'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='musical_ran')
+        bot.send_message(cid, "Случайный мюзикл:")
     elif c.data == "mistery_ran":
         result = format_data(random_film('детектив'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='mistery_ran')
+        bot.send_message(cid, "Случайный детектив:")
     elif c.data == "romance_ran":
         result = format_data(random_film('мелодрама'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='romance_ran')
+        bot.send_message(cid, "Случайная мелодрама:")
     elif c.data == "sci_fi_ran":
         result = format_data(random_film('фантастика'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='sci_fi_ran')
+        bot.send_message(cid, "Случайная фантастика:")
     elif c.data == "war_ran":
         result = format_data(random_film('военный'))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='war_ran')
+        bot.send_message(cid, "Случайный военный фильм:")
     elif c.data == 'random_f_ran':
-        result = format_data(random_film(genres_id[random.randint(0, 12)]))
+        genre = genres_id[random.randint(0, 12)]
+        print(genre)
+        result = format_data(random_film(genre))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_ran')
+        bot.send_message(cid, "Случайный фильм в жанре", genre)
     elif c.data == "back":
         msg = bot.send_message(cid, 'Вы на Главном Меню.')
         bot.register_next_step_handler(msg, send_welcome)
@@ -158,9 +189,9 @@ def ans(c):
             keyboard_wishlist = types.InlineKeyboardMarkup()
             add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
             keyboard_wishlist.add(add_wishlist)
-            bot.send_message(cid, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
+            bot.send_message(cid, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='HTML')
             i += 1
-        bot.send_message(cid, 'Предложить еще фильмов?', reply_markup=keyboard)
+        bot.send_message(cid, 'Предложить еще фильмы?', reply_markup=keyboard)
     for i in range(len(wishlist_list)):
         if c.data == f'remove_film_{i}':
             result = remove_from_wishlist(i)
@@ -169,17 +200,20 @@ def ans(c):
         if c.data == f'add_film_{i}':
             id_list = results_list[-1]
             result = add_to_wishlist(id_list[i])
+            poster = get_film_poster(id_list[i])
             if not isinstance(result, str):
                 bot.edit_message_text(
                     chat_id=cid,
                     message_id=c.message.message_id,
-                    text=c.message.text + '\n\n\nФильм добавлен в Избранное \U0001F4CD\n\n'
+                    text= f'<a href="{poster}"> </a>' + ''.join(format_data([film_description(id_list[i])])) + '\n\n\nФильм добавлен в Избранное\U0001F4CD\n\n',
+                    parse_mode='HTML'
                 )
             else:
                 bot.edit_message_text(
                     chat_id=cid,
                     message_id=c.message.message_id,
-                    text=c.message.text + f'\n\n\nФильм уже добавлен в Избранное \U0001F4CD\n\n'
+                    text=f'<a href="{poster}"> </a>' + ''.join(format_data([film_description(id_list[i])])) + f'\n\n\nФильм уже добавлен в Избранное \U0001F4CD\n\n',
+                    parse_mode='HTML'
                 )
 
 
@@ -187,6 +221,7 @@ def send_new_films(chat_id):
     keyboard = types.InlineKeyboardMarkup()
     back = types.InlineKeyboardButton(text='Назад', callback_data='back')
     again = types.InlineKeyboardButton(text='Повторить', callback_data='new_films')
+    bot.send_message(chat_id, 'Новинки фильмов: ')
     keyboard.add(back, again)
     result = format_data(new_films())
     results_list.append(result[1])
@@ -195,15 +230,16 @@ def send_new_films(chat_id):
         keyboard_wishlist = types.InlineKeyboardMarkup()
         add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
         keyboard_wishlist.add(add_wishlist)
-        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
+        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='HTML')
         i += 1
-    bot.send_message(chat_id, 'Предложить еще фильмов?', reply_markup=keyboard)
+    bot.send_message(chat_id, 'Предложить еще фильмы?', reply_markup=keyboard)
 
 
 def send_best_films(chat_id):
     keyboard = types.InlineKeyboardMarkup()
     back = types.InlineKeyboardButton(text='Назад', callback_data='back')
     again = types.InlineKeyboardButton(text='Повторить', callback_data='best_films')
+    bot.send_message(chat_id, "Лучшие фильмы: ")
     keyboard.add(back, again)
     result = format_data(best_of_the_best())
     results_list.append(result[1])
@@ -212,9 +248,9 @@ def send_best_films(chat_id):
         keyboard_wishlist = types.InlineKeyboardMarkup()
         add_wishlist = types.InlineKeyboardButton(text='Добавить в Избранное \U0001F4CD', callback_data=f'add_film_{i}')
         keyboard_wishlist.add(add_wishlist)
-        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='html')
+        bot.send_message(chat_id, ''.join(elem), reply_markup=keyboard_wishlist, parse_mode='HTML')
         i += 1
-    bot.send_message(chat_id, 'Предложить еще фильмов?', reply_markup=keyboard)
+    bot.send_message(chat_id, 'Предложить еще фильмы?', reply_markup=keyboard)
 
 
 @bot.message_handler(content_types=['text'])
@@ -268,13 +304,15 @@ def handle_message(message):
     elif message.text == 'Посмотреть Избранное \U0001F4CD':
         result = print_wishlist()
         i = 0
+        bot.send_message(message.chat.id, f"В Избранном {len(result)} фильмов.")
         if len(result) == 0:
             bot.send_message(message.chat.id, 'Тут пусто :(')
         for elem in result:
-            keyboard_wishlist = types.InlineKeyboardMarkup()
-            remove_wishlist = types.InlineKeyboardButton(text='Удалить из Избранного \U0001F4CD', callback_data=f'remove_film_{i}')
-            keyboard_wishlist.add(remove_wishlist)
-            bot.send_message(message.chat.id, elem, reply_markup=keyboard_wishlist, parse_mode='html')
+            if elem != '':
+                keyboard_wishlist = types.InlineKeyboardMarkup()
+                remove_wishlist = types.InlineKeyboardButton(text='Удалить из Избранного \U0001F4CD', callback_data=f'remove_film_{i}')
+                keyboard_wishlist.add(remove_wishlist)
+                bot.send_message(message.chat.id, elem, reply_markup=keyboard_wishlist, parse_mode='HTML')
             i += 1
 
 bot.infinity_polling()
