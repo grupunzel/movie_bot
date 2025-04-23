@@ -259,7 +259,6 @@ def handle_message(message):
         send_new_films(message.chat.id)
 
     elif message.text == 'Рекомендации фильмов \U0001F378':
-        markup_genre = types.InlineKeyboardMarkup()
         action = types.InlineKeyboardButton(text='Боевик \U0001F4A5', callback_data='action_rec')
         adventure = types.InlineKeyboardButton(text='Приключения \U0001F9D7', callback_data='adventure_rec')
         comedy = types.InlineKeyboardButton(text='Комедия \U0001F639', callback_data='comedy_rec')
@@ -275,14 +274,21 @@ def handle_message(message):
         war = types.InlineKeyboardButton(text='Военный \U0001F93C', callback_data='war_rec')
         random_f = types.InlineKeyboardButton(text='Случайный \U0001F440', callback_data='random_f_rec')
         back = types.InlineKeyboardButton(text='Назад в меню', callback_data='back')
-        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance, sci_fi, war, random_f,  back)
+        keyboard = [
+            [action, adventure, comedy],
+            [crime, drama, fantasy],
+            [history, horror, musical],
+            [mistery, romance, sci_fi],
+            [war, random_f],
+            [back]
+        ]
+        markup_genre = types.InlineKeyboardMarkup(keyboard)
         bot.send_message(message.chat.id, "Выберите жанр:", reply_markup=markup_genre)
 
     elif message.text == 'Лучшие из лучших \U0001F525':
         send_best_films(message.chat.id)
 
     elif message.text == 'Рандомный фильм \U0001F3AC':
-        markup_genre = types.InlineKeyboardMarkup()
         action = types.InlineKeyboardButton(text='Боевик \U0001F4A5', callback_data='action_ran')
         adventure = types.InlineKeyboardButton(text='Приключения \U0001F9D7', callback_data='adventure_ran')
         comedy = types.InlineKeyboardButton(text='Комедия \U0001F639', callback_data='comedy_ran')
@@ -298,7 +304,15 @@ def handle_message(message):
         war = types.InlineKeyboardButton(text='Военный \U0001F93C', callback_data='war_ran')
         random_f = types.InlineKeyboardButton(text='Случайный \U0001F440', callback_data='random_f_ran')
         back = types.InlineKeyboardButton(text='Назад в меню', callback_data='back')
-        markup_genre.add(action, adventure, comedy, crime, drama, fantasy, history, horror, musical, mistery, romance,sci_fi, war, random_f, back)
+        keyboard = [
+            [action, adventure, comedy],
+            [crime, drama, fantasy],
+            [history, horror, musical],
+            [mistery, romance, sci_fi],
+            [war, random_f],
+            [back]
+        ]
+        markup_genre = types.InlineKeyboardMarkup(keyboard)
         bot.send_message(message.chat.id, "Выберите жанр:", reply_markup=markup_genre)
 
     elif message.text == 'Посмотреть Избранное \U0001F4CD':
