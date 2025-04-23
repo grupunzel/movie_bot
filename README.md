@@ -38,15 +38,15 @@ pip install python-telegram-bot
 
 <h2>Features</h2>
 The bot menu includes five buttons:<br><br>
-- <b>Новинки</b>:<br>
+- <b>Новинки / New films</b>:<br>
   The bot sends new films with release years not earlier than 2024.<br><br>
-- <b>Рекомендации фильмов</b>:<br>
+- <b>Рекомендации фильмов / Film recommendation</b>:<br>
   The bot will send you a menu for genre selection. Choose a genre, and the bot will provide you five film recommendations.<br><br>
-- <b>Лучшие из лучших</b>:<br>
+- <b>Лучшие из лучших / Best of the best</b>:<br>
   The bot sends the most popular films of all times with the highest IMDb ratings.<br><br>
-- <b>Рандомный фильм</b>:<br>
+- <b>Рандомный фильм / Random film</b>:<br>
   The bot will send you a menu for genre selection. After choosing a genre, the bot will provide a random film with the selected genre.<br><br>
-- <b>Посмотреть Избранное</b>:<br>
+- <b>Посмотреть Избранное / See the wishlist</b>:<br>
   The bot will display your wishlist. In this feature you can delete a film from your wishlist.<br><br>
 
 <h2>Attached files</h2>
