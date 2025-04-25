@@ -168,7 +168,7 @@ global wishlist_id
 wishlist_id = []
 
 def add_to_wishlist(id):
-    data = format_data([film_description(id)])
+    data = format_data([film_description(id)])[0]
     if not data in wishlist:
         wishlist.append(data)
         wishlist_id.append(id)
