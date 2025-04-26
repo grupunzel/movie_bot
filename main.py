@@ -3,7 +3,7 @@ from telebot import types
 import random
 from hooks import send_request, format_data, random_film, new_films, best_of_the_best, add_to_wishlist, remove_from_wishlist, print_wishlist, film_description
 
-API_TOKEN = '7818305458:AAHql1NDOblTnOy48LjLDhue-mrjWc2PsDQ'
+API_TOKEN = 'BOT_API_TOKEN'
 
 bot = telebot.TeleBot(API_TOKEN)
 bot.set_webhook()
@@ -21,7 +21,8 @@ def send_welcome(message):
 
 global results_list
 results_list = []
-genres_id = ['боевик', 'приключения', 'комедия', 'криминал', 'драма', 'фэнтези', 'история', 'ужасы', 'мюзикл', 'детектив', 'мелодрама', 'фантастика', 'военный']
+genres_en = ['action', 'adventure', 'comedy', 'crime', 'drama', 'fantasy', 'history', 'horror', 'musical', 'mistery', 'romance', 'sci_fi', 'war']
+genres_ru = ['боевик', 'приключения', 'комедия', 'криминал', 'драма', 'фэнтези', 'история', 'ужасы', 'мюзикл', 'детектив', 'мелодрама', 'фантастика', 'военный']
 
 @bot.callback_query_handler(func=lambda c:True)
 def ans(c):
@@ -30,145 +31,30 @@ def ans(c):
     back = types.InlineKeyboardButton(text='Назад', callback_data='back')
     again = types.InlineKeyboardButton(text='Повторить', callback_data='again')
     result = []
-    if c.data == "action_rec":
-        result = format_data(send_request('боевик'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='action_rec')
-        bot.send_message(cid, "Боевики:")
-    elif c.data == "adventure_rec":
-        result = format_data(send_request('приключения'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='adventure_rec')
-        bot.send_message(cid, "Фильмы-приключения:")
-    elif c.data == "comedy_rec":
-        result = format_data(send_request('комедия'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='comedy_rec')
-        bot.send_message(cid, "Комедии:")
-    elif c.data == "crime_rec":
-        result = format_data(send_request('криминал'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='crime_rec')
-        bot.send_message(cid, "Криминал:")
-    elif c.data == "drama_rec":
-        result = format_data(send_request('драма'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='drama_rec')
-        bot.send_message(cid, "Драмы:")
-    elif c.data == "fantasy_rec":
-        result = format_data(send_request('фэнтези'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='fantasy_rec')
-        bot.send_message(cid, "Фэнтези:")
-    elif c.data == "history_rec":
-        result = format_data(send_request('история'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='history_rec')
-        bot.send_message(cid, "Исторические:")
-    elif c.data == "horror_rec":
-        result = format_data(send_request('ужасы'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='horror_rec')
-        bot.send_message(cid, "Ужасы:")
-    elif c.data == "musical_rec":
-        result = format_data(send_request('мюзикл'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='musical_rec')
-        bot.send_message(cid, "Мюзиклы:")
-    elif c.data == "mistery_rec":
-        result = format_data(send_request('детектив'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='mistery_rec')
-        bot.send_message(cid, "Детективы:")
-    elif c.data == "romance_rec":
-        result = format_data(send_request('мелодрама'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='romance_rec')
-        bot.send_message(cid, "Мелодрамы:")
-    elif c.data == "sci_fi_rec":
-        result = format_data(send_request('фантастика'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='sci_fi_rec')
-        bot.send_message(cid, "Фантастика:")
-    elif c.data == "war_rec":
-        result = format_data(send_request('военный'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='war_rec')
-        bot.send_message(cid, "Военные фильмы:")
-    elif c.data == 'random_f_rec':
-        genre = genres_id[random.randint(0, 12)]
+
+    for genre in genres_en:
+        if c.data == f'{genre}_rec':
+            genre_ru = genres_ru[genres_en.index(genre)]
+            result = format_data(send_request(genre_ru))
+            results_list.append(result[1])
+            again = types.InlineKeyboardButton(text='Повторить', callback_data=f'{genre}_rec')
+            bot.send_message(cid, f"{genre_ru.capitalize()}:")
+
+        elif c.data == f'{genre}_ran':
+            genre_ru = genres_ru[genres_en.index(genre)]
+            result = format_data(random_film(genre_ru))
+            results_list.append(result[1])
+            again = types.InlineKeyboardButton(text='Повторить', callback_data=f'{genre}_ran')
+            bot.send_message(cid, f"Случайный фильм в жанре {genre_ru}:")
+
+    if c.data == 'random_f_rec':
+        genre = genres_ru[random.randint(0, 12)]
         result = format_data(send_request(genre))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_rec')
-        bot.send_message(cid, f"Случайные рекомендации в жанре {genre}:")
-
-    elif c.data == "action_ran":
-        result = format_data(random_film('боевик'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='action_ran')
-        bot.send_message(cid, "Случайный боевик:")
-    elif c.data == "adventure_ran":
-        result = format_data(random_film('приключения'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='adventure_ran')
-        bot.send_message(cid, "Случайный фильм-приключение:")
-    elif c.data == "comedy_ran":
-        result = format_data(random_film('комедия'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='comedy_ran')
-        bot.send_message(cid, "Случайная комедия:")
-    elif c.data == "crime_ran":
-        result = format_data(random_film('криминал'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='crime_ran')
-        bot.send_message(cid, "Случайный фильм-криминал:")
-    elif c.data == "drama_ran":
-        result = format_data(random_film('драма'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='drama_ran')
-        bot.send_message(cid, "Случайная драма:")
-    elif c.data == "fantasy_ran":
-        result = format_data(random_film('фэнтези'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='fantasy_ran')
-        bot.send_message(cid, "Случайный фильм-фэнтези:")
-    elif c.data == "history_ran":
-        result = format_data(random_film('история'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='history_ran')
-        bot.send_message(cid, "Случайный исторический фильм:")
-    elif c.data == "horror_ran":
-        result = format_data(random_film('ужасы'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='horror_ran')
-        bot.send_message(cid, "Случайный фильм-ужасы:")
-    elif c.data == "musical_ran":
-        result = format_data(random_film('мюзикл'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='musical_ran')
-        bot.send_message(cid, "Случайный мюзикл:")
-    elif c.data == "mistery_ran":
-        result = format_data(random_film('детектив'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='mistery_ran')
-        bot.send_message(cid, "Случайный детектив:")
-    elif c.data == "romance_ran":
-        result = format_data(random_film('мелодрама'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='romance_ran')
-        bot.send_message(cid, "Случайная мелодрама:")
-    elif c.data == "sci_fi_ran":
-        result = format_data(random_film('фантастика'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='sci_fi_ran')
-        bot.send_message(cid, "Случайная фантастика:")
-    elif c.data == "war_ran":
-        result = format_data(random_film('военный'))
-        results_list.append(result[1])
-        again = types.InlineKeyboardButton(text='Повторить', callback_data='war_ran')
-        bot.send_message(cid, "Случайный военный фильм:")
+        bot.send_message(cid, f"Случайные рекомендации в жанре {genre}:") 
     elif c.data == 'random_f_ran':
-        genre = genres_id[random.randint(0, 12)]
+        genre = genres_ru[random.randint(0, 12)]
         result = format_data(random_film(genre))
         results_list.append(result[1])
         again = types.InlineKeyboardButton(text='Повторить', callback_data='random_f_ran')
