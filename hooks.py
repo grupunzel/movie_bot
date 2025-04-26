@@ -22,7 +22,7 @@ def send_request(genre: str):
 
     headers = {
         'accept' : 'application/json',
-        'X-API-KEY' : '9b2a9299-053f-488e-863f-68dbadc18ecf'
+        'X-API-KEY' : 'API_KEY'
     }
 
     params = {
@@ -52,7 +52,7 @@ def film_description(id):
 
     headers = {
         'accept': 'application/json',
-        'X-API-KEY': '9b2a9299-053f-488e-863f-68dbadc18ecf'
+        'X-API-KEY': 'API_KEY'
     }
 
     response = requests.get(url, headers=headers)
@@ -73,7 +73,7 @@ def film_trailer(id):
 
     headers = {
         'accept': 'application/json',
-        'X-API-KEY': '9b2a9299-053f-488e-863f-68dbadc18ecf'
+        'X-API-KEY': 'API_KEY'
     }
 
     response = requests.get(url, headers=headers)
@@ -97,7 +97,7 @@ def new_films():
 
     headers = {
         'accept': 'application/json',
-        'X-API-KEY': '9b2a9299-053f-488e-863f-68dbadc18ecf'
+        'X-API-KEY': 'API_KEY'
     }
 
     params = {
@@ -140,7 +140,7 @@ def best_of_the_best():
 
     headers = {
         'accept': 'application/json',
-        'X-API-KEY': '9b2a9299-053f-488e-863f-68dbadc18ecf'
+        'X-API-KEY': 'API_KEY'
     }
 
     params = {
